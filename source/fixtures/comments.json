@@ -1,0 +1,52 @@
+[
+{
+    "model": "account.comment",
+    "pk": 1,
+    "fields": {
+        "post": 2,
+        "user": 1,
+        "text": "travel Kyrgystan",
+        "created_at": "2026-07-06T11:21:55.079Z"
+    }
+},
+{
+    "model": "account.comment",
+    "pk": 2,
+    "fields": {
+        "post": 2,
+        "user": 1,
+        "text": "travel Kyrgystan",
+        "created_at": "2026-07-06T11:56:36.598Z"
+    }
+},
+{
+    "model": "account.comment",
+    "pk": 3,
+    "fields": {
+        "post": 2,
+        "user": 1,
+        "text": "123",
+        "created_at": "2026-07-06T11:56:41.687Z"
+    }
+},
+{
+    "model": "account.comment",
+    "pk": 4,
+    "fields": {
+        "post": 2,
+        "user": 1,
+        "text": "12",
+        "created_at": "2026-07-06T11:56:47.904Z"
+    }
+},
+{
+    "model": "account.comment",
+    "pk": 5,
+    "fields": {
+        "post": 1,
+        "user": 3,
+        "text": "qq",
+        "created_at": "2026-07-06T12:08:37.162Z"
+    }
+}
+]

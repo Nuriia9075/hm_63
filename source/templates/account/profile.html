@@ -13,7 +13,7 @@
                     <div class="d-flex align-items-center mb-3">
                         <h2 class="h4 mb-0 me-3">{{ profile.username }}</h2>
                        {% if request.user == profile %}
-                            <a href="{% url 'account:update_profile'  pk=profile.pk  %}" class="btn btn-sm btn-outline-secondary me-2">Редактировать профиль</a>
+                            <a href="#" class="btn btn-sm btn-outline-secondary me-2">Редактировать профиль</a>
                             <a href="{% url 'account:post_add' %}" class="btn btn-sm btn-primary">Добавить пост</a>
                         {% else %}
                             <form action="{% url 'account:toggle_subscribe' pk=profile.pk %}" method="POST" class="d-inline">

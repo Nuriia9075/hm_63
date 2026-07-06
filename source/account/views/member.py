@@ -52,13 +52,6 @@ class ProfileDetailView(DetailView):
     model = User
     context_object_name = 'profile'
 
-
-class ProfileUpdateView(LoginRequiredMixin, UpdateView):
-    template_name = "account/update_profile.html"
-    model = User
-    form_class = MyUserCreationForm
-    success_url = reverse_lazy('account:profile')
-
 class ToggleSubscribeView(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         target_profile = get_object_or_404(User, pk=pk)

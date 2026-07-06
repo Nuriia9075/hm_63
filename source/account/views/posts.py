@@ -19,7 +19,9 @@ class PostAddView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         post = form.save(commit=False)
         post.user = self.request.user
+        post.user.posts_count+=1
         post.save()
+        post.user.save()
         return redirect(self.get_success_url())
 
     def get_success_url(self):

@@ -1,0 +1,86 @@
+[
+{
+    "model": "account.profile",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$FBNf3N7sXdiPABZgMEe4D5$kqEvn0fnN8Nd3XOx7T+Cf1221O8Rn8F7AeRNWyNpcCo=",
+        "last_login": "2026-07-06T10:46:05.965Z",
+        "is_superuser": false,
+        "username": "qwe",
+        "first_name": "qwe",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-06T10:20:57.696Z",
+        "avatar": "avatars/qwe/images1111.webp",
+        "bio": "qwe",
+        "phone_number": "",
+        "gender": "",
+        "posts_count": 2,
+        "following_count": 1,
+        "followers_count": 2,
+        "email": "qwe@gmail.com",
+        "groups": [],
+        "user_permissions": [],
+        "subscriptions": [
+            2
+        ]
+    }
+},
+{
+    "model": "account.profile",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$PhWaJMmLD690mVPI7p8wqZ$tapZuHcaE95jupF8bKQeUUKhOecWOdaSWRdgkP9x3ac=",
+        "last_login": "2026-07-06T10:21:40.899Z",
+        "is_superuser": false,
+        "username": "asd",
+        "first_name": "asd",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-06T10:21:40.340Z",
+        "avatar": "avatars/asd/luffy.jpeg",
+        "bio": "",
+        "phone_number": "",
+        "gender": "M",
+        "posts_count": 2,
+        "following_count": 1,
+        "followers_count": 1,
+        "email": "asd@gmail.com",
+        "groups": [],
+        "user_permissions": [],
+        "subscriptions": [
+            1
+        ]
+    }
+},
+{
+    "model": "account.profile",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$cN07VW0zCTtV0X3IffI0rJ$/6OpN45flbnBWv8casn8V+A8sc+vFozi01hKmZwxwHA=",
+        "last_login": "2026-07-06T12:06:50.396Z",
+        "is_superuser": false,
+        "username": "qq",
+        "first_name": "qq",
+        "last_name": "",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2026-07-06T12:06:49.792Z",
+        "avatar": "avatars/qq/images.jpeg",
+        "bio": "qqqq",
+        "phone_number": "",
+        "gender": "",
+        "posts_count": 1,
+        "following_count": 1,
+        "followers_count": 0,
+        "email": "qqqq@gmail.com",
+        "groups": [],
+        "user_permissions": [],
+        "subscriptions": [
+            1
+        ]
+    }
+}
+]
