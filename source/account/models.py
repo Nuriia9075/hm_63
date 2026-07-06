@@ -38,6 +38,7 @@ class Post(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.RESTRICT, blank=False, null=False, related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
+    likes = models.ManyToManyField(Profile, related_name='liked_posts', blank=True, verbose_name="лайк")
 
     def __str__(self):
         return f'{self.pk} by {self.user.username}'

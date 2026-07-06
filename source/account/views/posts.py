@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
+from django.views import View
 from django.views.generic import CreateView, ListView
 from account.forms import PostForm
 from account.models import Post
@@ -54,5 +55,20 @@ class UserSearchView(ListView):
         context = super().get_context_data(**kwargs)
         context['search_value'] = self.request.GET.get('search', '')
         return context
+
+class ToggleLikeView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post_obj = get_object_or_404(Post, pk=pk)
+        user = request.user
+        if post_obj.likes.filter(pk=user.pk).exists():
+            post_obj.likes.remove(user)
+            if post_obj.likes_count > 0:
+                post_obj.likes_count -= 1
+        else:
+            post_obj.likes.add(user)
+            post_obj.likes_count += 1
+        post_obj.save()
+        return redirect(request.META.get('HTTP_REFERER', 'account:index'))
+
 
 

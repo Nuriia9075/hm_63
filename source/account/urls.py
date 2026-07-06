@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LogoutView
 from django.urls import path
 from .views.member import RegisterView, ProfileDetailView, login_view, ToggleSubscribeView
-from .views.posts import PostAddView, UserSearchView, IndexView
+from account.views.posts import PostAddView, UserSearchView, IndexView, ToggleLikeView
 
 app_name = "account"
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('post_add/', PostAddView.as_view(), name="post_add"),
     path('search/',UserSearchView.as_view(), name='search'),
     path('profile/<int:pk>/supscribe/', ToggleSubscribeView.as_view(), name='toggle_subscribe'),
+    path('post/<int:pk>/like/', ToggleLikeView.as_view(), name='toggle_like'),
 ]
