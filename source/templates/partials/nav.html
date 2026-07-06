@@ -1,7 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top mb-4">
     <div class="container">
-        <a class="navbar-brand font-logo" href="{% url 'account:index' %}">Instagram Clone</a>
+        <a class="navbar-brand font-logo" href="{% url 'account:index' %}">Instagram clon</a>
         <div class="d-flex align-items-center">
+           <form class="d-flex w-100" action="{% url 'account:search' %}" method="GET">
+            <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Поиск пользователей..." value="{{ search_value|default:'' }}">
+            <button class="btn btn-outline-dark btn-sm d-flex align-items-center me-3" type="submit">Найти</button>
+        </form>
             {% if request.user.is_authenticated %}
                 <a href="{% url 'account:post_add' %}" class="btn btn-outline-dark btn-sm d-flex align-items-center me-3" title="Создать публикацию">
                     <span class="fs-5 me-1" style="line-height: 1;">+</span> Публикация

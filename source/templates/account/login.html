@@ -2,14 +2,34 @@
 
 {% block content %}
 <div class="d-flex justify-content-center align-items-center min-vh-100">
-    <div class="card shadow-sm p-4" style="max-width: 600px; width: 100%;">
-        <div class="card-body pb-0">
-            {% include 'partials/form.html' with form_title="Вход в систему" btn_txt="Войти" %}
+    <div class="card shadow-sm p-4" style="max-width: 400px; width: 100%;">
+        <div class="card-header bg-white border-0 text-center fs-3 fw-bold pb-0 text-dark">
+            Instagram Clone
         </div>
-        <hr class="text-muted my-4">
+        <div class="card-body">
+            {% if has_error %}
+                <div class="alert alert-danger small py-2 text-center" role="alert">
+                    Неверный логин, email или пароль!
+                </div>
+            {% endif %}
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="id_username" class="form-label small text-muted mb-1">Логин или Электронная почта</label>
+                    <input type="text" name="username" class="form-control form-control-sm" id="id_username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="id_password" class="form-label small text-muted mb-1">Пароль</label>
+                    <input type="password" name="password" class="form-control form-control-sm" id="id_password" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 btn-sm mt-3">Войти</button>
+            </form>
+        </div>
+        <hr class="text-muted my-3">
         <div class="card-body pt-0 text-center">
-            <p class="text-secondary small mb-3">У вас еще нет аккаунта?</p>
-            <a href="{% url 'account:register' %}" class="btn btn-outline-primary w-100">
+            <p class="text-secondary small mb-2">У вас еще нет аккаунта?</p>
+            <a href="{% url 'account:register' %}" class="btn btn-outline-primary btn-sm w-100">
                 <span>Создать аккаунт</span>
             </a>
         </div>

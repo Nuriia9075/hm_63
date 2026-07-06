@@ -29,7 +29,7 @@ class Post(models.Model):
     description = models.TextField(max_length=300, blank= True, null= True, verbose_name="Описание")
     likes_count = models.IntegerField(default=0, verbose_name="Likes")
     comment_count = models.IntegerField(default=0, verbose_name="Комментарии")
-    user = models.ForeignKey(Profile, on_delete=models.RESTRICT, blank=False, null=False)
+    user = models.ForeignKey(Profile, on_delete=models.RESTRICT, blank=False, null=False, related_name='posts')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата изменения")
 

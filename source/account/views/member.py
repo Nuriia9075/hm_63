@@ -1,12 +1,13 @@
+from urllib.parse import urlencode
 from django.contrib.auth import get_user_model, login, authenticate
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
-from account.forms import MyUserCreationForm
-
-
+from account.forms import MyUserCreationForm, SimpleSearchForm
 User = get_user_model()
 # Create your views here.
+
 def login_view(request):
     context = {}
     if request.user.is_authenticated:
@@ -48,7 +49,3 @@ class ProfileDetailView(DetailView):
     template_name = "account/profile.html"
     model = User
     context_object_name = 'profile'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context

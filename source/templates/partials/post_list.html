@@ -1,0 +1,29 @@
+<div class="row row-cols-1 row-cols-md-3 g-3 mt-4">
+    {% for post in profile.posts.all %}
+        <div class="col">
+            <div class="card h-100 border shadow-sm rounded overflow-hidden">
+                <div class="position-relative w-100" style="padding-top: 100%;">
+                    <a href="#">
+                        <img src="{{ post.image.url }}" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Публикация">
+                    </a>
+                </div>
+                <div class="card-body p-2 bg-white">
+                    <div class="d-flex justify-content-between mb-1 small text-muted px-1">
+                        <span>❤️ <strong>{{ post.likes_count }}</strong></span>
+                        <span>💬 <strong>{{ post.comment_count }}</strong></span>
+                    </div>
+                    {% if post.description %}
+                        <p class="card-text small text-dark mb-0 text-truncate px-1" title="{{ post.description }}">
+                            {{ post.description }}
+                        </p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12 text-center py-5 text-muted bg-white rounded border shadow-sm">
+            <p class="mb-0 fw-semibold">Публикаций пока нет</p>
+        </div>
+    {% endfor %}
+</div>
