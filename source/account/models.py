@@ -16,6 +16,12 @@ class Profile(AbstractUser):
     following_count = models.IntegerField(default=0, verbose_name="Подписки")
     followers_count = models.IntegerField(default=0, verbose_name="Подписчики")
     email = models.EmailField(unique=True, blank=False, null=False, verbose_name="Email")
+    subscriptions = models.ManyToManyField(
+            'self',
+            symmetrical=False,
+            related_name='subscribers',
+            blank=True,
+            verbose_name="Подписки")
 
     def __str__(self):
         return self.username + "'s Profile"

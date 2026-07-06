@@ -1,10 +1,12 @@
-from urllib.parse import urlencode
 from django.contrib.auth import get_user_model, login, authenticate
-from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
-from account.forms import MyUserCreationForm, SimpleSearchForm
+from account.forms import MyUserCreationForm
+from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 User = get_user_model()
 # Create your views here.
 
@@ -49,3 +51,27 @@ class ProfileDetailView(DetailView):
     template_name = "account/profile.html"
     model = User
     context_object_name = 'profile'
+
+
+class ToggleSubscribeView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        target_profile = get_object_or_404(User, pk=pk)
+        current_user = request.user
+        if target_profile == current_user:
+            return redirect('account:profile', pk=pk)
+        if current_user.subscriptions.filter(pk=target_profile.pk).exists():
+            current_user.subscriptions.remove(target_profile)
+
+            if current_user.following_count > 0:
+                current_user.following_count -= 1
+            if target_profile.followers_count > 0:
+                target_profile.followers_count -= 1
+        else:
+            current_user.subscriptions.add(target_profile)
+
+            current_user.following_count += 1
+            target_profile.followers_count += 1
+        current_user.save()
+        target_profile.save()
+        return redirect('account:profile', pk=pk)
+
