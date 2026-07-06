@@ -3,7 +3,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
 from django.views.generic import CreateView, ListView
-from account.forms import PostForm
+from account.forms import PostForm, CommentForm
 from account.models import Post
 from django.db.models import Q
 from django.contrib.auth import get_user_model
@@ -70,5 +70,18 @@ class ToggleLikeView(LoginRequiredMixin, View):
         post_obj.save()
         return redirect(request.META.get('HTTP_REFERER', 'account:index'))
 
+
+class CommentADDView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        post_obj = get_object_or_404(Post, pk=pk)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = post_obj
+            comment.save()
+            post_obj.comment_count += 1
+            post_obj.save()
+        return redirect(request.META.get('HTTP_REFERER', 'account:index'))
 
 

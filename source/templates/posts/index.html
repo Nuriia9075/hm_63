@@ -31,7 +31,13 @@
                             {{ post.description|default:"" }}
                         </p>
                         <small class="text-muted">Комментариев: {{ post.comment_count }}</small>
+                    <form action="{% url 'account:add_comment' pk=post.pk %}" method="POST" class="d-flex gap-2">
+                        {% csrf_token %}
+                        <input type="text" name="text" class="form-control form-control-sm" placeholder="Напиши коммент..." required>
+                        <button type="submit" class="btn btn-sm btn-primary">Опубликовать</button>
+                    </form>
                     </div>
+
 
                 </div>
             {% empty %}

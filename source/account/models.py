@@ -46,3 +46,12 @@ class Post(models.Model):
         verbose_name = 'Публикация'
         verbose_name_plural = 'Публикации'
         ordering = ['-created_at']
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
+    text = models.TextField(max_length=500, verbose_name="Текст")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']

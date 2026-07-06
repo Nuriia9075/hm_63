@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model, login, authenticate
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 from account.forms import MyUserCreationForm
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -52,6 +52,12 @@ class ProfileDetailView(DetailView):
     model = User
     context_object_name = 'profile'
 
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    template_name = "account/update_profile.html"
+    model = User
+    form_class = MyUserCreationForm
+    success_url = reverse_lazy('account:profile')
 
 class ToggleSubscribeView(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):

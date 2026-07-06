@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Profile,  Post
+from .models import Profile, Post, Comment
 
 
 class MyUserCreationForm(UserCreationForm):
@@ -20,7 +20,13 @@ class PostForm(forms.ModelForm):
             'image':forms.FileInput(attrs={'class':'form-control','id':'image'}),
             'description': forms.Textarea(attrs={'class':'form-control'}),
        }
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
+        widgets = {
+            'text': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Добавьте комментарий...'}),
+        }
 
-
-class SimpleSearchForm(forms.Form):
-    search = forms.CharField(max_length=100, required=False, label="")
+# class SimpleSearchForm(forms.Form):
+#     search = forms.CharField(max_length=100, required=False, label="")
