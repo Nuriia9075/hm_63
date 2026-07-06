@@ -26,9 +26,13 @@ class PostAddView(LoginRequiredMixin,CreateView):
 
 class IndexView(ListView):
     model = Post
-    template_name = "account/index.html"
+    template_name = "posts/index.html"
     context_object_name = "posts"
 
+    def get_queryset(self):
+        user = self.request.user
+        subscribed_user_ids = user.subscriptions.values_list('pk', flat=True)
+        return Post.objects.filter(user_id__in=subscribed_user_ids).order_by('-created_at')
 
 class UserSearchView(ListView):
     model = User

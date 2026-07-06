@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+      {% include 'partials/nav.html'%}
+<div class="container" style="margin-top: 100px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            {% for post in posts %}
+                <div class="card mb-4 bg-white border shadow-sm">
+                    <div class="card-header bg-white d-flex align-items-center py-3">
+                        <a href="{% url 'account:profile' pk=post.user.pk %}" class="fw-bold text-dark text-decoration-none small">
+                            {% if post.user.avatar %}
+                                <img src="{{ post.user.avatar.url }}" alt="" class="rounded-circle border me-2" style="width: 35px; height: 35px; object-fit: cover;">
+                            {% endif %}
+                            {{ post.user.username }}
+                        </a>
+                    </div>
+                    <img src="{{ post.image.url }}" class="w-100 img-fluid" alt="Фото поста">
+                    <div class="card-body">
+                        <form action="{% url 'account:toggle_like' pk=post.pk %}" method="POST" class="mb-2">
+                            {% csrf_token %}
+                            {% if request.user in post.likes.all %}
+                                <button type="submit" class="btn p-0 border-0 fs-4">❤️</button>
+                            {% else %}
+                                <button type="submit" class="btn p-0 border-0 fs-4">🤍</button>
+                            {% endif %}
+                        </form>
+                        <p class="card-text small fw-bold mb-1">Лайков: {{ post.likes_count }}</p>
+                        <p class="card-text small mb-1">
+                            <span class="fw-bold me-1">{{ post.user.username }}</span>
+                            {{ post.description|default:"" }}
+                        </p>
+                        <small class="text-muted">Комментариев: {{ post.comment_count }}</small>
+                    </div>
+
+                </div>
+            {% empty %}
+                <div class="alert alert-info text-center mt-5">
+                    <h5>Пусто </h5>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
