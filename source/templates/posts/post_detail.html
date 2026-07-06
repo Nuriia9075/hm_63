@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+     {% include 'partials/nav.html'%}
+<div class="card mb-4 bg-white border shadow-sm" style="max-width: 650px;">
+    <div class="card-header bg-white d-flex align-items-center py-3">
+        <a href="{% url 'account:profile' pk=post.user.pk %}" class="fw-bold text-dark text-decoration-none small">
+            {% if post.user.avatar %}
+                <img src="{{ post.user.avatar.url }}" alt="" class="rounded-circle border me-2" style="width: 40px; height: 40px; object-fit: cover;">
+            {% endif %}
+            {{ post.user.username }}
+        </a>
+    </div>
+    <div class="answers-container mb-4" style="max-width: 650px;">
+    <img src="{{ post.image.url }}" class="w-100 img-fluid" style="width: 450px; height: 450px"; alt="Фото поста">
+    </div>
+    <div class="card-body">
+        <form action="{% url 'account:toggle_like' pk=post.pk %}" method="POST" class="mb-2">
+            {% csrf_token %}
+            {% if request.user in post.likes.all %}
+                <button type="submit" class="btn p-0 border-0 fs-4">❤️</button>
+            {% else %}
+                <button type="submit" class="btn p-0 border-0 fs-4">🤍</button>
+            {% endif %}
+        </form>
+        <p class="card-text small fw-bold mb-1">Лайков: {{ post.likes_count }}
+<h5 class="mb-3">Комментарий:</h5>
+<div class="answers-container mb-4" style="max-width: 650px;">
+     {% for comment in comments %}
+    <div class="card mb-2">
+    <div class="card-body">
+        <a href="{% url 'account:profile' pk=comment.user.pk %}">
+            <img src="{{ comment.user.avatar.url }}" class="rounded-circle border me-2" style="width: 40px; height: 40px; object-fit: cover;">
+            {{ comment.user.username }}
+        </a>
+        <p>{{ comment.text }}</p>
+        <small>{{ comment.created_at|date:"Y-m-d H:i" }}</small>
+       {% if request.user == comment.user or request.user.is_staff or request.user.is_superuser %}
+        <div class="ms-2">
+            <a href="#" class="btn btn-link btn-sm text-secondary p-0 me-1" title="">
+                <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a href="#" class="btn btn-link btn-sm text-danger p-0" title="">
+                <i class="fa-solid fa-trash"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+    {% empty %}
+    <div class="alert alert-light text-muted border text-center py-3" style="max-width: 650px;">
+        Пока нет комметариев
+    </div>
+    {% endfor %}
+</div>
+<div class="mt-4">
+        {% if request.user.is_authenticated %}
+            <div class="card p-3 bg-white" style="max-width: 650px;">
+                <h6>Оставить коммет:</h6>
+                    <form action="{% url 'account:add_comment' pk=post.pk %}" method="POST" class="d-flex gap-2">
+                        {% csrf_token %}
+                        <input type="text" name="text" class="form-control form-control-sm" placeholder="Напиши коммент..." required>
+                        <button type="submit" class="btn btn-sm btn-primary">Опубликовать</button>
+                    </form>
+            </div>
+        {% else %}
+            <div class="alert alert-light text-muted border" role="alert">
+                Только авторизованные пользователи могут оставлять ответы. Войдите на сайт.
+            </div>
+        {% endif %}
+</div>
+        </div>
+{%endblock%}

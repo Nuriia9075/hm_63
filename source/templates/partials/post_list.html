@@ -3,7 +3,7 @@
         <div class="col">
             <div class="card h-100 border shadow-sm rounded overflow-hidden">
                 <div class="position-relative w-100" style="padding-top: 100%;">
-                    <a href="#">
+                    <a href="{% url 'account:post_detail' post.pk %}">
                         <img src="{{ post.image.url }}" class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" alt="Публикация">
                     </a>
                 </div>

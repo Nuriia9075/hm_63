@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 from account.forms import PostForm, CommentForm
 from account.models import Post
 from django.db.models import Q
@@ -85,5 +85,14 @@ class CommentADDView(LoginRequiredMixin, View):
             post_obj.comment_count += 1
             post_obj.save()
         return redirect(request.META.get('HTTP_REFERER', 'account:index'))
+
+class PostDetailView(DetailView):
+    template_name = "posts/post_detail.html"
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.all()
+        return context
 
 
